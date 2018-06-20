@@ -13,6 +13,7 @@ import io.netty.util.CharsetUtil;
  *
  * @author <a href="mailto:norman.maurer@gmail.com">Norman Maurer</a>
  */
+// 标注为@Shareable，可以总是使用同样的实例
 @Sharable
 public class EchoServerHandler extends ChannelInboundHandlerAdapter {
     @Override
@@ -20,6 +21,7 @@ public class EchoServerHandler extends ChannelInboundHandlerAdapter {
         ByteBuf in = (ByteBuf) msg;
         System.out.println(
                 "Server received: " + in.toString(CharsetUtil.UTF_8));
+        // 将接收到的消息写给发送者，而不冲刷出站消息
         ctx.write(in);
     }
 
